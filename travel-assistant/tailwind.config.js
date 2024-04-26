@@ -12,7 +12,9 @@ module.exports = {
     extend: {},
     colors: {
       primary: '#afc125',
+      hoverprime: '#e5cd4e',
       secondary: '#f8de55',
+      hoversecon: '#A3B422',
       accent: '#12355b',
 
       dark: '#1d1d1d',
@@ -22,6 +24,15 @@ module.exports = {
       negative: '#C10015',
       info: '#31CCEC',
       warning: '#F2C037'
+    },
+    keyframes: {
+      zoomIn: {
+        '0%': {transform: 'scale(1)', filter: 'blur(0)'},
+        '100%': {transform: 'scale(1.2)', filter: 'blur(5px)'},
+      },
+    },
+    animation: {
+      zoomIn: 'zoomIn 1.5s ease-in-out forwards'
     },
   },
   plugins: [],
