@@ -15,7 +15,7 @@
       <p class="max-w-md text-lg">
         Let us organize your dream vacation. Tell us everything you would like
         to do and we will create the best possible recommendations based on your
-        preference.
+        preferences.
       </p>
       <button
         class="self-start bg-secondary hover:bg-hoverprime rounded-full text-[17px] p-3 w-[10rem] h-[3rem]"

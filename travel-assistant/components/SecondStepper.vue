@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 
 const step = ref(1);
 const store = useStepperStore()
+const router = useRouter()
+const counter = computed(() => step.value + 5)
 
 
 const questions = [
@@ -31,7 +34,7 @@ console.log(form.value);
   <section
     class="flex flex-col justify-center items-center h-screen gap-5 -mt-16"
   >
-    <h1 class="font-medium text-2xl">Question {{ step }} / 5</h1>
+    <h1 class="font-medium text-2xl">Question {{ counter }} / 10</h1>
     <h2 class="font-semibold text-3xl max-w-xl text-center">
       {{ questions[step] }}
     </h2>
@@ -236,12 +239,11 @@ console.log(form.value);
               <Icon name="mingcute:arrow-left-line" size="30px" color="black" />
             </q-btn>
             <q-btn
-              @click="() => step === 5 ? store.increment() : ($refs.stepper as any).next()"
+              @click="() => step === 5 ? router.push('/recommendations') : ($refs.stepper as any).next()"
               color="secondary"
               class="text-black p-1 w-28"
               :label="step === 5 ? 'Finish' : ''"
             >
-            
               <Icon
                 v-if="step !== 5"
                 name="mingcute:arrow-right-line"
