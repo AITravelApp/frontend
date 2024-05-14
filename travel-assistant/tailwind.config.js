@@ -25,6 +25,10 @@ module.exports = {
       info: '#31CCEC',
       warning: '#F2C037'
     },
+    rounded: {
+      lg: '50px',
+      xl: '100px'
+    },
     keyframes: {
       zoomIn: {
         '0%': {transform: 'scale(1)', filter: 'blur(0)'},

@@ -17,9 +17,9 @@
     </p>
     <article class="flex justify-center items-center gap-16 mt-5 text-md">
       <NuxtLink href="/recommendations">
-      <button class="p-2 w-44 border-2 border-black rounded-md">SKIP</button>
+      <q-btn no-caps outline class="p-2 w-44 text-black rounded-md">Skip</q-btn>
       </NuxtLink>
-      <button @click="store.increment()" class="p-2 w-44 bg-secondary rounded-md">PROCEED</button>
+      <q-btn color="secondary" no-caps @click="store.increment()" class="p-2 w-44  rounded-md text-black">Proceed</q-btn>
     </article>
   </section>
 </template>

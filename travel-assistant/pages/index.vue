@@ -17,11 +17,13 @@
         to do and we will create the best possible recommendations based on your
         preferences.
       </p>
-      <button
-        class="self-start bg-secondary hover:bg-hoverprime rounded-full text-[17px] p-3 w-[10rem] h-[3rem]"
+      <q-btn
+        color="secondary"
+        no-caps
+        class="self-start rounded-full text-[17px] p-3 w-[10rem] h-[3rem] text-black"
       >
         <NuxtLink to="/survey"> Start Survey </NuxtLink>
-      </button>
+      </q-btn>
     </article>
   </section>
 </template>
