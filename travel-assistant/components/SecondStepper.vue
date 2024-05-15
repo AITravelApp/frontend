@@ -2,22 +2,30 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 
-const step = ref(1);
-const store = useStepperStore()
-const router = useRouter()
-const counter = computed(() => step.value + 5)
+interface Form {
+  question1: string[];
+  question2: string[];
+  question3: string[];
+  question4: string[];
+  question5: string[];
+}
 
+const step = ref(1);
+const store = useStepperStore();
+const router = useRouter();
+const counter = computed(() => step.value + 5);
+const textareaValue = ref("");
 
 const questions = [
   "",
-  "What type of traveler are you?",
-  "Which type of trip would you like?",
-  "What are some activities you would enjoy on your vacation?",
-  "Which of these experiences match your previous decisions?",
-  "With whom are you traveling?",
+  "Are there any specific hobbies and interests you’d like to explore during your trip?",
+  "Do you like exploring local villages / cities to enjoy the traditional architecure?",
+  "Would you like recommendations for local restuarants, food markets, or wine tasting?",
+  "Are you looking for cost-efficitive options when it comes to events and activities?",
+  "Italy hosts numerous festivals throughout the year. Would you like recommendations for specific festivals?",
 ];
 
-const form = ref({
+const form = ref<Form>({
   question1: [],
   question2: [],
   question3: [],
@@ -25,9 +33,13 @@ const form = ref({
   question5: [],
 });
 
+function addAnswer() {
+  console.log(form.value.question1);
+  form.value.question1.push(textareaValue.value);
+  textareaValue.value = "";
+}
+
 console.log(form.value);
-
-
 </script>
 
 <template>
@@ -50,179 +62,70 @@ console.log(form.value);
       done-color="secondary"
     >
       <q-step title="question 1" :name="1" :done="step > 1">
-        <article class="flex flex-col ml-10">
-          <q-checkbox
-            v-model="form.question1"
-            val="Wants to spend everyday discovering something new"
-            label="Wants to spend everyday discovering something new"
-          />
-          <q-checkbox
-            v-model="form.question1"
-            val="Wants to just relax and enjoy the area where they booked"
-            label="Wants to just relax and enjoy the area where they booked"
-          />
-          <q-checkbox
-            v-model="form.question1"
-            val="Wants a combination of discovering new places and relaxation"
-            label="Wants a combination of discovering new places and relaxation"
-          />
+        <article class="flex flex-col">
+          <textarea
+            class="focus:outline-none border p-3 border-grey h-28"
+            v-model="textareaValue"
+            placeholder="Fill it in here"
+          ></textarea>
         </article>
       </q-step>
       <q-step title="question 2" :name="2" :done="step > 2">
         <article class="grid grid-cols-2 place-items-center">
-          <div class="flex flex-col">
-            <q-checkbox
-              v-model="form.question2"
-              val="Outdoor trip(hiking, biking)"
-              label="Outdoor trip(hiking, biking)"
-            />
-            <q-checkbox
-              v-model="form.question2"
-              val="Festive trip (festivals, clubs)"
-              label="Festive trip (festivals, clubs)"
-            />
-            <q-checkbox
-              v-model="form.question2"
-              val="Cultural trip (historical, cultural experiences)"
-              label="Cultural trip (historical, cultural experiences)"
-            />
-          </div>
-          <div class="flex flex-col">
-            <q-checkbox
-              v-model="form.question2"
-              val="Beach trip (coastal areas, swimming)"
-              label="Beach trip (coastal areas, swimming)"
-            />
-            <q-checkbox
-              v-model="form.question2"
-              val="Urban trip (cities, metropolitan areas)"
-              label="Urban trip (cities, metropolitan areas)"
-            />
-          </div>
+          <q-checkbox
+            v-model="form.question2"
+            val="User wants to explore local villages and cities in the area that have traditional architecture"
+            label="Yes, I like doing that"
+          />
+          <q-checkbox
+            v-model="form.question2"
+            val="User does not want to explore local villages and cities in the area that have traditional architecture"
+            label="No, I'd rather not"
+          />
         </article>
       </q-step>
 
       <q-step title="question 3" :name="3" :done="step > 3">
         <article class="grid grid-cols-2 place-items-center">
-          <div class="flex flex-col">
-            <q-checkbox
-              v-model="form.question3"
-              val="Cultural activities(museums, monuments)"
-              label="Cultural activities(museums, monuments)"
-            />
-            <q-checkbox
-              v-model="form.question3"
-              val="Outdoor activities (hiking, biking)"
-              label="Outdoor activities (hiking, biking)"
-            />
-            <q-checkbox
-              v-model="form.question3"
-              val="Food and culinary experiences"
-              label="Food and culinary experiences"
-            />
-
-            <q-checkbox
-              v-model="form.question3"
-              val="Beach activities(sunbathing, swimming)"
-              label="Beach activities(sunbathing, swimming)"
-            />
-          </div>
-          <div class="flex flex-col">
-            <q-checkbox
-              v-model="form.question3"
-              val="Shopping activities(malls, botiques)"
-              label="Shopping activities(malls, botiques)"
-            />
-            <q-checkbox
-              v-model="form.question3"
-              val="Exploring the nearby area(towns, cities)"
-              label="Exploring the nearby area(towns, cities)"
-            />
-            <q-checkbox
-              v-model="form.question3"
-              val="Relaxation(wellness)"
-              label="Relaxation(wellness)"
-            />
-            <q-checkbox
-              v-model="form.question3"
-              val="Concerts and festivals "
-              label="Concerts and festivals "
-            />
-          </div>
+          <q-checkbox
+            v-model="form.question3"
+            val="User wants recommendations for local restaurants, food markets and wine tasting"
+            label="Yes, I would like that"
+          />
+          <q-checkbox
+            v-model="form.question3"
+            val="User does not want recommendations for local restaurants, food markets and wine tasting"
+            label="No, I'd rather not"
+          />
         </article>
       </q-step>
 
       <q-step title="question 4" :name="4" :done="step > 4">
         <article class="grid grid-cols-2 place-items-center">
-          <div class="flex flex-col">
-            <q-checkbox
-              v-model="form.question4"
-              val="Experiencing Italian night life. "
-              label="Experiencing Italian night life. "
-            />
-            <q-checkbox
-              v-model="form.question4"
-              val="Savoring Italian cuisine(pizza, gelato, etc...)"
-              label="Savoring Italian cuisine(pizza, gelato, etc...)"
-            />
-            <q-checkbox
-              v-model="form.question4"
-              val="Visiting different museums"
-              label="Visiting different museums"
-            />
-
-            <q-checkbox
-              v-model="form.question4"
-              val="Sightseeing historic buildings and cities"
-              label="Sightseeing historic buildings and cities"
-            />
-          </div>
-          <div class="flex flex-col">
-            <q-checkbox
-              v-model="form.question4"
-              val="Exploring coastal areas"
-              label="Exploring coastal areas"
-            />
-            <q-checkbox
-              v-model="form.question4"
-              val="Exploring the nearby nature"
-              label="Exploring the nearby nature"
-            />
-            <q-checkbox
-              v-model="form.question4"
-              val="Shopping at popular destinations"
-              label="Shopping at popular destinations"
-            />
-            <q-checkbox
-              v-model="form.question4"
-              val="Experiencing Italian wines, cocktails, etc.."
-              label="Experiencing Italian wines, cocktails, etc.. "
-            />
-          </div>
+          <q-checkbox
+            v-model="form.question4"
+            val="User is on a budget and wants to find low cost options when it comes to events and activities"
+            label="Yes, I am on a budget"
+          />
+          <q-checkbox
+            v-model="form.question4"
+            val="User is not on a budget and doesn't mind spending a good amount of money"
+            label="No, not really"
+          />
         </article>
       </q-step>
       <q-step title="question 5" :name="5" :done="step > 5">
         <article class="grid grid-cols-2 place-items-center">
-          <div class="flex flex-col">
-            <q-checkbox v-model="form.question5" val="Solo" label="Solo" />
             <q-checkbox
-              v-model="form.question5"
-              val="With friends"
-              label="With friends"
-            />
-            <q-checkbox
-              v-model="form.question5"
-              val="With family"
-              label="With family"
-            />
-          </div>
-          <div class="flex flex-col">
-            <q-checkbox
-              v-model="form.question5"
-              val="With partner"
-              label="With partner"
-            />
-          </div>
+            v-model="form.question5"
+            val="User would like to receive festival recommendations that are in the area"
+            label="Yes, I would like that"
+          />
+          <q-checkbox
+            v-model="form.question5"
+            val="User does not want to attend festivals while they are on vacation"
+            label="No, I'm not a fan of festivals"
+          />
         </article>
       </q-step>
 
@@ -239,7 +142,7 @@ console.log(form.value);
               <Icon name="mingcute:arrow-left-line" size="30px" color="black" />
             </q-btn>
             <q-btn
-              @click="() => step === 5 ? router.push('/recommendations') : ($refs.stepper as any).next()"
+              @click="() => step === 5 ? ( addAnswer(), router.push('/recommendations')) : ($refs.stepper as any).next()"
               color="secondary"
               class="text-black p-1 w-28"
               :label="step === 5 ? 'Finish' : ''"
