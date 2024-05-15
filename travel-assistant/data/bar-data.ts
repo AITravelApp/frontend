@@ -1,0 +1,147 @@
+import type { Data } from "./resturant-data";
+
+
+export const barData: Data[][] = [
+    [
+        {
+            id: Math.random().toString(36).substr(2, 9),
+            name: "Mayday Club",
+            averageRating: 4.5,
+            userReviewCount: 510,
+            location: "Via Dante Alighieri, 16/r, 50122 Firenze FI, Italië",
+            maps: "https://www.google.com/maps/place/Mayday+Club/@43.7709616,11.2566148,17z/data=!3m1!4b1!4m6!3m5!1s0x132a54013fb3667d:0x39df31efc9d53abf!8m2!3d43.7709616!4d11.2566148!16s%2Fg%2F1tf91yck?entry=ttu",
+            phone: "+390552381290",
+            website: "http://www.maydayclub.it/",
+            priceTag: "ЄЄ - ЄЄЄ",
+            image: "/bar-1.jpg",
+            tags: "Bars, Clubs",
+            amount: "Є10 - Є20",
+            banner: "/bar-banner-1.jpg"
+        },
+        {
+            id: Math.random().toString(36).substr(2, 9),
+            name: "Trip pre Tre",
+            averageRating: 4.5,
+            userReviewCount: 1144,
+            location: "Borgo Ognissanti, 144r, 50123 Firenze FI, Italië",
+            maps: "https://www.google.com/maps/place/Il+Trip+per+Tre/@43.7742018,11.2433103,17z/data=!3m1!4b1!4m6!3m5!1s0x132a56ae6f0a3531:0xcae1e2eeb8348360!8m2!3d43.7742018!4d11.2433103!16s%2Fg%2F1yfjv0vj4?entry=ttuu",
+            phone: "",
+            website: "",
+            priceTag: "Є - ЄЄ",
+            image: "/bar-2.jpg",
+            tags: "Bars, Clubs",
+            amount: "Є1 - Є10",
+            banner: "/bar-banner-2.jpg"
+        },
+        {
+            id: Math.random().toString(36).substr(2, 9),
+            name: "The Arts Inn",
+            averageRating: 5,
+            userReviewCount: 119,
+            location: "Via del Porcellana, 63 rosso, 50123 Firenze FI, Italië",
+            maps: "https://www.google.com/maps/place//data=!4m2!3m1!1s0x132a56a967e6fa89:0xa7ca2e9766a40560?sa=X&ved=1t:8290&ictx=111u",
+            phone: "+393511032085",
+            website: "http://www.theartsinn-florence.com/",
+            priceTag: "ЄЄ - ЄЄЄ",
+            image: "/bar-3.jpg",
+            tags: "Bars, Clubs",
+            amount: "Є10 - Є20",
+            banner: "/bar-banner-3.jpg"
+        },
+    ],
+    [
+        {
+            id: Math.random().toString(36).substr(2, 9),
+            name: "Sabor Cubano",
+            averageRating: 4.5,
+            userReviewCount: 166,
+            location: "Via Sant'Antonino, 64R, 50123 Firenze FI, Italië",
+            maps: "https://www.google.com/maps/place//data=!4m2!3m1!1s0x132a540296356193:0xcc20ace37e265a15?sa=X&ved=1t:8290&ictx=111",
+            phone: "+393317731536",
+            website: "http://saborcubanofirenze.com/",
+            priceTag: "Є - ЄЄ",
+            image: "/bar-4.jpg",
+            tags: "Bars, Clubs",
+            amount: "Є1 - Є10",
+            banner: "/bar-banner-4.jpg"
+        },
+        {
+            id: Math.random().toString(36).substr(2, 9),
+            name: "The Red Garter.",
+            averageRating: 4.5,
+            userReviewCount: 456,
+            location: "Via dei Benci, 33, R, 50122 Firenze FI, Italië",
+            maps: "https://www.google.com/maps/place/Red+Garter/@43.768264,11.259795,16z/data=!3m1!4b1!4m6!3m5!1s0x132a54076c88b407:0x9debd52f9e45f38f!8m2!3d43.768264!4d11.259795!16s%2Fg%2F1q5bndgbl?entry=ttu",
+            phone: "+390552480909",
+            website: "https://redgarter1962.com/",
+            priceTag: "ЄЄ - ЄЄЄ",
+            image: "/bar-5.jpg",
+            tags: "Bars, Clubs, Karaoke Bars",
+            amount: "Є10 - Є20",
+            banner: "/bar-banner-5.jpg"
+        },
+        {
+            id: Math.random().toString(36).substr(2, 9),
+            name: "Strizzi Garden.",
+            averageRating: 4,
+            userReviewCount: 386,
+            location: "Via Giovan Filippo Mariti, 5, 50127 Firenze FI, Italië",
+            maps: "hhttps://www.google.com/maps/place/Strizzi+Garden/@43.7897064,11.232274,17z/data=!3m1!4b1!4m6!3m5!1s0x132a5695b9a8b411:0x846b5d8c461d1fd7!8m2!3d43.7897064!4d11.232274!16s%2Fg%2F11b6lg_lmq?entry=ttu",
+            phone: "+393427311616",
+            website: "https://www.facebook.com/strizzigarden/",
+            priceTag: "ЄЄ - ЄЄЄ",
+            image: "/bar-6.jpg",
+            tags: "Bars, Clubs, Breweries",
+            amount: "Є10 - Є20",
+            banner: "/bar-banner-6.jpg"
+        },
+        
+    ],
+    [
+        {
+            id: Math.random().toString(36).substr(2, 9),
+            name: "Bitter Bar",
+            averageRating: 4.5,
+            userReviewCount: 374,
+            location: "Via di Mezzo, 28/30r, 50121 Firenze FI, Italië",
+            maps: "https://www.google.com/maps/place//data=!4m2!3m1!1s0x132a540693a71611:0xfe9c3521a854c062?sa=X&ved=1t:8290&ictx=111",
+            phone: "+393806461020",
+            website: "http://www.bitterbarfirenze.it/",
+            priceTag: "ЄЄ - ЄЄЄ",
+            image: "/bar-7.jpg",
+            tags: "Bars, Clubs",
+            amount: "Є10 - Є20",
+            banner: "/bar-banner-7.jpg"
+        },
+        {
+            id: Math.random().toString(36).substr(2, 9),
+            name: "The Lion's Fountain",
+            averageRating: 4,
+            userReviewCount: 1702,
+            location: "Borgo degli Albizi, 34r, 50122 Firenze FI, Italië",
+            maps: "https://www.google.com/maps/place//data=!4m2!3m1!1s0x132a54067969eb81:0xd4da7f407f4179d4?sa=X&ved=1t:8290&ictx=111",
+            phone: "+390552344412",
+            website: "http://www.thelionsfountain.com/",
+            priceTag: "ЄЄ - ЄЄЄ",
+            image: "/bar-8.jpg",
+            tags: "Bars, Clubs",
+            amount: "Є10 - Є20",
+            banner: "/bar-banner-8.jpg"
+        },
+        {
+            id: Math.random().toString(36).substr(2, 9),
+            name: "Public House 27",
+            averageRating: 4.5,
+            userReviewCount: 404,
+            location: "Via Palazzuolo, 27, 50100 Firenze FI, Italië",
+            maps: "https://www.google.com/maps/place/Public+House+27/@43.7731472,11.2475722,17z/data=!3m1!4b1!4m6!3m5!1s0x132a56a9585c0a23:0xbf9121a744023ec1!8m2!3d43.7731472!4d11.2475722!16s%2Fg%2F1tf91mr5?entry=ttu",
+            phone: "+393200248729",
+            website: "",
+            priceTag: "Є - ЄЄ",
+            image: "/bar-9.jpg",
+            tags: "Bars, Clubs",
+            amount: "Є1 - Є10",
+            banner: "/bar-banner-9.jpg"
+        },
+    ]
+]

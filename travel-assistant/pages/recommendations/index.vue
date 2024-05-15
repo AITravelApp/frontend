@@ -1,22 +1,21 @@
 <script setup lang="ts">
+import { ref } from "vue";
 
-import { ref } from 'vue'
-
-const choice = ref(1)
+const choice = ref(1);
 const labels = [
-    {
-        name: 'Restaurants',
-        value: 1
-    },
-    {
-        name: 'Bars',
-        value: 2
-    },
-    {
-        name: 'Activities',
-        value: 3
-    }
-]
+  {
+    name: "Restaurants",
+    value: 1,
+  },
+  {
+    name: "Bars",
+    value: 2,
+  },
+  {
+    name: "Activities",
+    value: 3,
+  },
+];
 </script>
 
 <template>
@@ -34,10 +33,13 @@ const labels = [
       </q-btn>
     </article>
     <article class="flex flex-col p-10 gap-5">
-    <h1 class="text-4xl font-semibold text-center">Pick your place</h1>
-    <p class="text-[17px]">Pick the place you would like to visit and check all the details</p>
+      <h1 class="text-4xl font-semibold text-center">Pick your place</h1>
+      <p class="text-[17px]">
+        Pick the place you would like to visit and check all the details
+      </p>
     </article>
     <RestaurantCarousel v-if="choice === 1" />
+    <BarCarousel v-if="choice === 2" />
     <ActivityCarousel v-if="choice === 3" />
   </section>
 </template>

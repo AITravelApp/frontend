@@ -16,6 +16,8 @@ module.exports = {
       secondary: '#f8de55',
       hoversecon: '#A3B422',
       accent: '#12355b',
+      white: '#fff',
+      grey: '#EBEBEB',
 
       dark: '#1d1d1d',
       'dark-page': '#121212',

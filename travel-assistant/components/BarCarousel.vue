@@ -1,15 +1,12 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { restaurantData } from "../data/resturant-data";
+import { barData } from "../data/bar-data";
 
 const slide = ref(1);
-const events = ref(restaurantData);
+const bars = ref(barData);
 </script>
 
 <template>
-  <div class="q-pa-md q-gutter-sm">
-    
-  </div>
   <div class="w-[80%] -mt-10">
     <q-carousel
       v-model="slide"
@@ -24,7 +21,7 @@ const events = ref(restaurantData);
       class="flex justify-center items-center"
     >
       <q-carousel-slide
-        v-for="(eventGroup, index) in events"
+        v-for="(eventGroup, index) in bars"
         :name="index"
         :key="index"
         class="overflow-hidden"
