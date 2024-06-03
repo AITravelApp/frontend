@@ -8,13 +8,33 @@ defineProps({
 </script>
 
 <template>
-  <q-card class="drop-shadow">
-    <q-img class="relative w-[350px] h-[500px]" :src="event.image">
-      <div
-        class="absolute top-3/4 left-1/2 cursor-pointer -translate-x-1/2 text-subtitle2 text-center rounded-lg opacity-80 hover:opacity-100 -mt-5 bg-secondary"
-      >
-        <Drawer :event="event" />
-      </div>
-    </q-img>
+  <q-card class="my-card w-[350px] h-[420px] flex flex-col justify-between">
+    <div>
+      <q-img class="w-[350px] h-[200px]" :src="event.image" />
+      <q-card-section class="flex flex-col gap-2">
+        <div class="flex justify-between items-center">
+          <h2 class="text-xl max-w-56 truncate">{{ event.name }}</h2>
+          <p class="text-lg">{{ event.priceTag }}</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <q-rating
+            v-model="event.averageRating"
+            readonly
+            max="5"
+            size="1.5em"
+            color="secondary"
+            icon="star_border"
+            icon-selected="star"
+            icon-half="star_half"
+            no-dimming
+          />
+          <p class="font-bold">{{ event.userReviewCount }}+</p>
+        </div>
+      </q-card-section>
+    </div>
+
+    <q-card-actions align="right">
+      <Drawer :event="event" />
+    </q-card-actions>
   </q-card>
 </template>

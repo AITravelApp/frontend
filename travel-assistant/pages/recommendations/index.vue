@@ -22,12 +22,12 @@ const labels = [
   <section class="flex flex-col justify-center items-center mt-14 mb-24 gap-5">
     <article class="flex items-center gap-10">
       <q-btn
-        color="secondary"
         no-caps
         v-for="(label, index) in labels"
         :key="index"
         class="p-3 w-48 text-[18px] rounded-md text-center text-black"
         @click="choice = label.value"
+        :color="choice === label.value ? 'secondary' : 'white'"
       >
         {{ label.name }}
       </q-btn>

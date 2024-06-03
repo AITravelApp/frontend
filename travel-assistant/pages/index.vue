@@ -9,8 +9,8 @@
     <article
       class="relative flex flex-col h-full justify-center pl-[10%] gap-10 -mt-10"
     >
-      <h1 class="text-5xl text-black font-bold tracking-normal">
-        Welcome to paradise
+      <h1 class="text-6xl text-black font-bold tracking-normal">
+       Personalize your dream <br> vacation
       </h1>
       <p class="max-w-md text-lg">
         Let us organize your dream vacation. Tell us everything you would like
@@ -26,4 +26,5 @@
       </q-btn>
     </article>
   </section>
+  <Footer />
 </template>

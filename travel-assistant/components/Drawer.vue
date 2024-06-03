@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { GoogleMap, Marker } from "vue3-google-map";
+import { GoogleMap } from "vue3-google-map";
 
 defineProps({
   event: {
@@ -10,15 +10,16 @@ defineProps({
 });
 const maximizedToggle = ref(true);
 const drawer = ref(false);
-const center = { lat: 40.12150192260742, lng: -100.45039367675781 };
+const center = { lat: 43.769562, lng: 11.255814 }
+
 </script>
 
 <template>
   <button
     @click="drawer = !drawer"
-    class="text-black w-auto font-semibold text-[18px] whitespace-nowrap"
+    class="text-black p-3 bg-secondary w-32  text-[15px] rounded-lg whitespace-nowrap"
   >
-    {{ event.name }}
+     More details 
   </button>
   <q-dialog
     v-model="drawer"
@@ -30,7 +31,7 @@ const center = { lat: 40.12150192260742, lng: -100.45039367675781 };
     <q-card class="bg-white text-white">
       <q-bar class="bg-primary h-10 text-black">
         <q-space />
-        <q-btn  dense flat icon="close" size="15px" class="mr-10" v-close-popup>
+        <q-btn dense flat icon="close" size="15px" class="mr-10" v-close-popup>
           <q-tooltip class="bg-primary text-[15px] text-white">Close</q-tooltip>
         </q-btn>
       </q-bar>
@@ -39,7 +40,7 @@ const center = { lat: 40.12150192260742, lng: -100.45039367675781 };
         <section class="flex justify-center items-center flex-col mt-5">
           <q-img
             :src="event.banner"
-            style="width: 900px; height: 500px;"
+            style="width: 900px; height: 500px"
             class="rounded-md shadow-xl"
           />
           <article class="flex justify-between items-center w-[900px] mt-5">
@@ -91,11 +92,13 @@ const center = { lat: 40.12150192260742, lng: -100.45039367675781 };
               </a>
             </div>
           </article>
-          <q-img
-            src="/maps-placeholder.jpg"
-           style="width: 900px; height: 500px;"
-            class="rounded-md shadow-xl mt-10"
-          />
+          <!-- <GoogleMap
+            api-key=""
+            class="w-[900px] h-[500px] mt-10"
+            :center="center"
+            :zoom="15"
+          >
+          </GoogleMap> -->
         </section>
       </q-card-section>
     </q-card>
