@@ -1,5 +1,8 @@
+
+
 export default defineNuxtConfig({
   devtools: { enabled: true },
+
   css: ["~/assets/css/main.css"],
   postcss: {
     plugins: {
@@ -7,7 +10,13 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+
   modules: ["nuxt-quasar-ui", "@nuxt/image", "nuxt-icon", "@pinia/nuxt"],
+  runtimeConfig: {
+    public: {
+      tomKey: process.env.NUXT_TOM_KEY,
+    }
+  },
   quasar: {
     config: {
       brand: {

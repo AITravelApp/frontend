@@ -2,8 +2,7 @@
 import { ref } from "vue";
 
 const step = ref(1);
-const store = useStepperStore()
-
+const store = useStepperStore();
 
 const questions = [
   "",
@@ -23,8 +22,6 @@ const form = ref({
 });
 
 console.log(form.value);
-
-
 </script>
 
 <template>
@@ -43,8 +40,8 @@ console.log(form.value);
       flat
       animated
       class="w-6/12"
-      active-color="secondary"
-      done-color="secondary"
+      active-color="primary"
+      done-color="primary"
     >
       <q-step title="question 1" :name="1" :done="step > 1">
         <article class="flex flex-col ml-10">
@@ -241,7 +238,6 @@ console.log(form.value);
               class="text-black p-1 w-28"
               :label="step === 5 ? 'Finish' : ''"
             >
-            
               <Icon
                 v-if="step !== 5"
                 name="mingcute:arrow-right-line"
