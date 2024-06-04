@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { GoogleMap } from "vue3-google-map";
+
 
 defineProps({
   event: {
@@ -10,7 +10,7 @@ defineProps({
 });
 const maximizedToggle = ref(true);
 const drawer = ref(false);
-const center = { lat: 43.769562, lng: 11.255814 }
+
 
 </script>
 
@@ -92,13 +92,7 @@ const center = { lat: 43.769562, lng: 11.255814 }
               </a>
             </div>
           </article>
-          <!-- <GoogleMap
-            api-key=""
-            class="w-[900px] h-[500px] mt-10"
-            :center="center"
-            :zoom="15"
-          >
-          </GoogleMap> -->
+          <Map />
         </section>
       </q-card-section>
     </q-card>
