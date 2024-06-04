@@ -58,8 +58,8 @@ console.log(form.value);
       flat
       animated
       class="w-6/12"
-      active-color="secondary"
-      done-color="secondary"
+      active-color="primary"
+      done-color="primary"
     >
       <q-step title="question 1" :name="1" :done="step > 1">
         <article class="flex flex-col">
@@ -116,7 +116,7 @@ console.log(form.value);
       </q-step>
       <q-step title="question 5" :name="5" :done="step > 5">
         <article class="grid grid-cols-2 place-items-center">
-            <q-checkbox
+          <q-checkbox
             v-model="form.question5"
             val="User would like to receive festival recommendations that are in the area"
             label="Yes, I would like that"
@@ -142,7 +142,7 @@ console.log(form.value);
               <Icon name="mingcute:arrow-left-line" size="30px" color="black" />
             </q-btn>
             <q-btn
-              @click="() => step === 5 ? ( addAnswer(), router.push('/recommendations')) : ($refs.stepper as any).next()"
+              @click="() => step === 5 ? ( addAnswer(), router.push('/summary')) : ($refs.stepper as any).next()"
               color="secondary"
               class="text-black p-1 w-28"
               :label="step === 5 ? 'Finish' : ''"
