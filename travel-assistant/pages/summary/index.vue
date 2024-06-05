@@ -6,7 +6,7 @@ let value2 = ref(0);
 let value3 = ref(0);
 let value4 = ref(0);
 
-const animateProgress = (valueRef, targetValue) => {
+const animateProgress = (valueRef: Ref<number>, targetValue: number) => {
   const intervalId = setInterval(() => {
     if (valueRef.value < targetValue) {
       valueRef.value++;
@@ -17,9 +17,9 @@ const animateProgress = (valueRef, targetValue) => {
 };
 
 onMounted(() => {
-  animateProgress(value1, 65); 
-  animateProgress(value2, 80); 
-  animateProgress(value3, 55); 
+  animateProgress(value1, 80); 
+  animateProgress(value2, 45); 
+  animateProgress(value3, 70); 
   animateProgress(value4, 30); 
 });
 </script>
@@ -30,7 +30,6 @@ onMounted(() => {
     <h1 class="text-[40px] font-semibold">🎉 Congratulations!</h1>
     <p class="text-center text-[18px]">
       You completed the survey and now it is time to see what comes next. <br />
-      We found over 90% match with your preference.
     </p>
     <article class="flex justify-center items-center gap-10 mt-5">
       <div class="flex flex-col items-center">
@@ -63,7 +62,7 @@ onMounted(() => {
           track-color="grey-3"
           class="q-ma-md"
         />
-        <p class="text-[17px] font-semibold">Cuisine.</p>
+        <p class="text-[17px] font-semibold">Shopping.</p>
       </div>
       <div class="flex flex-col items-center">
         <q-circular-progress

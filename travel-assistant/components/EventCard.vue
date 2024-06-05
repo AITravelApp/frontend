@@ -13,8 +13,8 @@ defineProps({
       <q-img class="w-[350px] h-[200px]" :src="event.image" />
       <q-card-section class="flex flex-col gap-2">
         <div class="flex justify-between items-center">
-          <h2 class="text-xl max-w-56 truncate">{{ event.name }}</h2>
-          <p class="text-lg">{{ event.priceTag }}</p>
+          <h2 class="text-xl max-w-56 truncate font-semibold">{{ event.name }}</h2>
+          <p class="text-lg font-semibold">{{ event.priceTag }}</p>
         </div>
         <div class="flex items-center gap-3">
           <q-rating

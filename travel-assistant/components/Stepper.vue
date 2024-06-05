@@ -1,6 +1,14 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
+type FormType = {
+  type_of_traveler: string[];
+  type_of_wanted_trip: string[];
+  wanted_activities: string[];
+  matched_experiences: string[];
+  traveling_with: string[];
+};
+
 const step = ref(1);
 const store = useStepperStore();
 
@@ -13,15 +21,13 @@ const questions = [
   "With whom are you traveling?",
 ];
 
-const form = ref({
-  question1: [],
-  question2: [],
-  question3: [],
-  question4: [],
-  question5: [],
+const form: Ref<FormType> = ref({
+  type_of_traveler: [],
+  type_of_wanted_trip: [],
+  wanted_activities: [],
+  matched_experiences: [],
+  traveling_with: [],
 });
-
-console.log(form.value);
 </script>
 
 <template>
@@ -46,18 +52,18 @@ console.log(form.value);
       <q-step title="question 1" :name="1" :done="step > 1">
         <article class="flex flex-col ml-10">
           <q-checkbox
-            v-model="form.question1"
-            val="Wants to spend everyday discovering something new"
+            v-model="form.type_of_traveler"
+            val="discovering_everyday"
             label="Wants to spend everyday discovering something new"
           />
           <q-checkbox
-            v-model="form.question1"
-            val="Wants to just relax and enjoy the area where they booked"
+            v-model="form.type_of_traveler"
+            val="relax_and_enjoy"
             label="Wants to just relax and enjoy the area where they booked"
           />
           <q-checkbox
-            v-model="form.question1"
-            val="Wants a combination of discovering new places and relaxation"
+            v-model="form.type_of_traveler"
+            val="both"
             label="Wants a combination of discovering new places and relaxation"
           />
         </article>
@@ -66,30 +72,30 @@ console.log(form.value);
         <article class="grid grid-cols-2 place-items-center">
           <div class="flex flex-col">
             <q-checkbox
-              v-model="form.question2"
-              val="Outdoor trip(hiking, biking)"
+              v-model="form.type_of_wanted_trip"
+              val="outdoor_trip"
               label="Outdoor trip(hiking, biking)"
             />
             <q-checkbox
-              v-model="form.question2"
-              val="Festive trip (festivals, clubs)"
+              v-model="form.type_of_wanted_trip"
+              val="festivals_and_clubs"
               label="Festive trip (festivals, clubs)"
             />
             <q-checkbox
-              v-model="form.question2"
-              val="Cultural trip (historical, cultural experiences)"
+              v-model="form.type_of_wanted_trip"
+              val="cultural_trip"
               label="Cultural trip (historical, cultural experiences)"
             />
           </div>
           <div class="flex flex-col">
             <q-checkbox
-              v-model="form.question2"
-              val="Beach trip (coastal areas, swimming)"
+              v-model="form.type_of_wanted_trip"
+              val="beach_trip"
               label="Beach trip (coastal areas, swimming)"
             />
             <q-checkbox
-              v-model="form.question2"
-              val="Urban trip (cities, metropolitan areas)"
+              v-model="form.type_of_wanted_trip"
+              val="urban_trip_cities"
               label="Urban trip (cities, metropolitan areas)"
             />
           </div>
@@ -100,47 +106,47 @@ console.log(form.value);
         <article class="grid grid-cols-2 place-items-center">
           <div class="flex flex-col">
             <q-checkbox
-              v-model="form.question3"
-              val="Cultural activities(museums, monuments)"
+              v-model="form.wanted_activities"
+              val="cultural_activities"
               label="Cultural activities(museums, monuments)"
             />
             <q-checkbox
-              v-model="form.question3"
-              val="Outdoor activities (hiking, biking)"
+              v-model="form.wanted_activities"
+              val="outdoor_activities"
               label="Outdoor activities (hiking, biking)"
             />
             <q-checkbox
-              v-model="form.question3"
-              val="Food and culinary experiences"
+              v-model="form.wanted_activities"
+              val="food_and_culinary_experiences"
               label="Food and culinary experiences"
             />
 
             <q-checkbox
-              v-model="form.question3"
-              val="Beach activities(sunbathing, swimming)"
+              v-model="form.wanted_activities"
+              val="beach_activities"
               label="Beach activities(sunbathing, swimming)"
             />
           </div>
           <div class="flex flex-col">
             <q-checkbox
-              v-model="form.question3"
-              val="Shopping activities(malls, botiques)"
+              v-model="form.wanted_activities"
+              val="shopping_activities"
               label="Shopping activities(malls, botiques)"
             />
             <q-checkbox
-              v-model="form.question3"
-              val="Exploring the nearby area(towns, cities)"
+              v-model="form.wanted_activities"
+              val="exploring_the_nearby_area"
               label="Exploring the nearby area(towns, cities)"
             />
             <q-checkbox
-              v-model="form.question3"
-              val="Relaxation(wellness)"
+              v-model="form.wanted_activities"
+              val="relaxation"
               label="Relaxation(wellness)"
             />
             <q-checkbox
-              v-model="form.question3"
-              val="Concerts and festivals "
-              label="Concerts and festivals "
+              v-model="form.wanted_activities"
+              val="concerts_and_festivals"
+              label="Concerts and festivals"
             />
           </div>
         </article>
@@ -150,46 +156,46 @@ console.log(form.value);
         <article class="grid grid-cols-2 place-items-center">
           <div class="flex flex-col">
             <q-checkbox
-              v-model="form.question4"
-              val="Experiencing Italian night life. "
+              v-model="form.matched_experiences"
+              val="experiencing_italian_night_life"
               label="Experiencing Italian night life. "
             />
             <q-checkbox
-              v-model="form.question4"
-              val="Savoring Italian cuisine(pizza, gelato, etc...)"
+              v-model="form.matched_experiences"
+              val="savoring_Italian_cuisine"
               label="Savoring Italian cuisine(pizza, gelato, etc...)"
             />
             <q-checkbox
-              v-model="form.question4"
-              val="Visiting different museums"
+              v-model="form.matched_experiences"
+              val="visiting_different_museums"
               label="Visiting different museums"
             />
 
             <q-checkbox
-              v-model="form.question4"
-              val="Sightseeing historic buildings and cities"
+              v-model="form.matched_experiences"
+              val="sightseeing_historic_buildings_and_cities"
               label="Sightseeing historic buildings and cities"
             />
           </div>
           <div class="flex flex-col">
             <q-checkbox
-              v-model="form.question4"
-              val="Exploring coastal areas"
+              v-model="form.matched_experiences"
+              val="exploring_coastal_areas"
               label="Exploring coastal areas"
             />
             <q-checkbox
-              v-model="form.question4"
-              val="Exploring the nearby nature"
+              v-model="form.matched_experiences"
+              val="exploring_the_nearby_nature"
               label="Exploring the nearby nature"
             />
             <q-checkbox
-              v-model="form.question4"
-              val="Shopping at popular destinations"
+              v-model="form.matched_experiences"
+              val="shopping_at_popular_destinations"
               label="Shopping at popular destinations"
             />
             <q-checkbox
-              v-model="form.question4"
-              val="Experiencing Italian wines, cocktails, etc.."
+              v-model="form.matched_experiences"
+              val="experiencing_Italian_wines,_cocktails"
               label="Experiencing Italian wines, cocktails, etc.. "
             />
           </div>
@@ -198,22 +204,22 @@ console.log(form.value);
       <q-step title="question 5" :name="5" :done="step > 5">
         <article class="grid grid-cols-2 place-items-center">
           <div class="flex flex-col">
-            <q-checkbox v-model="form.question5" val="Solo" label="Solo" />
+            <q-checkbox v-model="form.traveling_with" val="solo" label="Solo" />
             <q-checkbox
-              v-model="form.question5"
-              val="With friends"
+              v-model="form.traveling_with"
+              val="with_friends"
               label="With friends"
             />
             <q-checkbox
-              v-model="form.question5"
-              val="With family"
+              v-model="form.traveling_with"
+              val="with_family"
               label="With family"
             />
           </div>
           <div class="flex flex-col">
             <q-checkbox
-              v-model="form.question5"
-              val="With partner"
+              v-model="form.traveling_with"
+              val="with_partner"
               label="With partner"
             />
           </div>
@@ -233,7 +239,7 @@ console.log(form.value);
               <Icon name="mingcute:arrow-left-line" size="30px" color="black" />
             </q-btn>
             <q-btn
-              @click="() => step === 5 ? store.increment() : ($refs.stepper as any).next()"
+              @click="() => step === 5 ? ( store.increment(), console.log(form) ) : ($refs.stepper as any).next()"
               color="secondary"
               class="text-black p-1 w-28"
               :label="step === 5 ? 'Finish' : ''"
