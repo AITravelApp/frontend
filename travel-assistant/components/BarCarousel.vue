@@ -1,13 +1,23 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { barData } from "../data/bar-data";
+import BarCard from "./BarCard.vue";
 
 const slide = ref(1);
-const bars = ref(barData);
+const data = localStorage.getItem("recommendations");
+const parsedData = data ? JSON.parse(data) : { bars: [] };
+const bars = parsedData.bars;
+
+const groupedBars: any[] = [];
+const chunkSize = 3;
+
+for (let i = 0; i < bars.length; i += chunkSize) {
+  groupedBars.push(bars.slice(i, i + chunkSize));
+}
 </script>
 
 <template>
-  <div class="w-[80%] -mt-10">
+  <div class="q-pa-md q-gutter-sm" style="margin-bottom: 20px;"></div>
+  <div class="w-[80%] -mt-10" style="overflow-y: auto;">
     <q-carousel
       v-model="slide"
       transition-prev="slide-right"
@@ -21,16 +31,16 @@ const bars = ref(barData);
       class="flex justify-center items-center"
     >
       <q-carousel-slide
-        v-for="(eventGroup, index) in bars"
+        v-for="(barGroup, index) in groupedBars"
         :name="index"
         :key="index"
         class="overflow-hidden"
       >
         <div class="row justify-start items-center no-wrap">
-          <EventCard
-            v-for="event in eventGroup"
-            :key="event.id"
-            :event="event"
+          <BarCard
+            v-for="bar in barGroup"
+            :key="bar.position"
+            :bar="bar"
             class="q-ma-sm"
           />
         </div>
@@ -38,3 +48,4 @@ const bars = ref(barData);
     </q-carousel>
   </div>
 </template>
+

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { getRecommendations } from "~/server/graphqlService";
 
 type FormType = {
   type_of_traveler: string[];
@@ -28,6 +29,31 @@ const form: Ref<FormType> = ref({
   matched_experiences: [],
   traveling_with: [],
 });
+
+
+const handleFormSubmission = async () => {
+  try {
+    const formData: FormType = {
+      type_of_traveler: [...form.value.type_of_traveler],
+      type_of_wanted_trip: [...form.value.type_of_wanted_trip],
+      wanted_activities: [...form.value.wanted_activities],
+      matched_experiences: [...form.value.matched_experiences],
+      traveling_with: [...form.value.traveling_with]
+    };
+    
+    const recommendations = await getRecommendations(
+      formData.type_of_traveler,
+      formData.type_of_wanted_trip,
+      formData.wanted_activities,
+      formData.matched_experiences,
+      formData.traveling_with
+    );
+
+  } catch (error) {
+    console.error("Error fetching recommendations:", error);
+  }
+};
+
 </script>
 
 <template>
@@ -133,11 +159,7 @@ const form: Ref<FormType> = ref({
               val="shopping_activities"
               label="Shopping activities(malls, botiques)"
             />
-            <q-checkbox
-              v-model="form.wanted_activities"
-              val="exploring_the_nearby_area"
-              label="Exploring the nearby area(towns, cities)"
-            />
+            
             <q-checkbox
               v-model="form.wanted_activities"
               val="relaxation"
@@ -239,7 +261,7 @@ const form: Ref<FormType> = ref({
               <Icon name="mingcute:arrow-left-line" size="30px" color="black" />
             </q-btn>
             <q-btn
-              @click="() => step === 5 ? ( store.increment(), console.log(form) ) : ($refs.stepper as any).next()"
+                @click="() => step === 5 ? ( store.increment(), handleFormSubmission() ) : ($refs.stepper as any).next()"
               color="secondary"
               class="text-black p-1 w-28"
               :label="step === 5 ? 'Finish' : ''"

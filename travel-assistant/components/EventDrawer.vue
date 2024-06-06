@@ -1,17 +1,15 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-
 defineProps({
   event: {
     type: Object,
     required: true,
   },
 });
+
 const maximizedToggle = ref(true);
 const drawer = ref(false);
-
-
 </script>
 
 <template>
@@ -39,15 +37,16 @@ const drawer = ref(false);
       <q-card-section class="q-pt-none text-black mb-5">
         <section class="flex justify-center items-center flex-col mt-5">
           <q-img
-            :src="event.banner"
+            :src="event.image"
             style="width: 900px; height: 500px"
             class="rounded-md shadow-xl"
           />
           <article class="flex justify-between items-center w-[900px] mt-5">
-            <h1 class="text-3xl text-black font-semibold">{{ event.name }}</h1>
+            <h1 class="text-3xl text-black font-semibold">{{ event.title }}</h1>
             <div class="flex gap-3 items-center">
-              <q-rating
-                v-model="event.averageRating"
+              <!-- Rating can be added if available -->
+              <!-- <q-rating
+                v-model="event.rating"
                 readonly
                 max="5"
                 size="1.5em"
@@ -56,43 +55,32 @@ const drawer = ref(false);
                 icon-selected="star"
                 icon-half="star_half"
                 no-dimming
-              />
-              <p class="text-[17px] font-semibold">
-                {{ event.userReviewCount }}+
-              </p>
+              /> -->
+              <!-- Reviews can be added if available -->
+              <!-- <p class="text-[17px] font-semibold">
+                {{ event.reviews }}+
+              </p> -->
             </div>
           </article>
           <article class="flex justify-between items-center w-[900px] mt-4">
             <div class="flex gap-3 items-center">
               <Icon name="fluent:location-28-filled" color="red" size="30px" />
-              <a target="_blank" :href="event.maps">
-                <h2 class="text-xl">{{ event.location }}</h2>
-              </a>
+              <h2 class="text-xl">{{ event.address.join(', ') }}</h2>
             </div>
-            <p class="text-[20px] font-bold">{{ event.priceTag }}</p>
+            <!-- Price or ticket info can be added if available -->
+            <!-- <p class="text-[20px] font-bold">{{ event.price }}</p> -->
           </article>
           <div class="w-[900px] h-[1px] bg-grey mt-10 opacity-45"></div>
           <article class="flex items-center gap-5 mt-10">
-            <div class="flex gap-2 items-center">
+            <!-- Tags can be added if available -->
+            <!-- <div class="flex gap-2 items-center">
               <Icon name="mingcute:tag-2-fill" size="30px" color="black" />
               <p class="text-[18px]">{{ event.tags }}</p>
-            </div>
-            <div class="flex gap-2 items-center">
-              <Icon name="ph:credit-card-fill" size="30px" color="black" />
-              <p class="text-[18px]">{{ event.amount }}</p>
-            </div>
-            <div class="flex gap-2 items-center">
-              <Icon name="fa:phone" size="20px" color="black" />
-              <p class="text-[18px]">{{ event.phone }}</p>
-            </div>
-            <div class="flex gap-2 items-center">
-              <Icon name="fa6-solid:globe" size="22px" color="black" />
-              <a target="_blank" :href="event.website">
-                <p class="text-[18px] underline">{{ event.name }}</p>
-              </a>
-            </div>
+            </div> -->
+            <!-- Additional event information can be added here -->
           </article>
-          <Map />
+          <!-- Additional event-specific content can be added here -->
+          <Map :lat="event.gps_coordinates.latitude" :lng="event.gps_coordinates.longitude" />
         </section>
       </q-card-section>
     </q-card>

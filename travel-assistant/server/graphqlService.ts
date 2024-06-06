@@ -32,22 +32,35 @@ export const graphqlRequest = async <T>(
   }
 };
 
-// Define and export the Recommendation type
-export type Recommendation = {
-  activity_id: string;
-  activity_namename: string;
-};
 
-export const getRecommendations = async (): Promise<Recommendation[]> => {
-  console.log("getRecommendations called"); // Console log for testing
+
+export const getRecommendations = async (
+  type_of_traveler: string[], 
+  type_of_wanted_trip: string[], 
+  wanted_activities: string[], 
+  matched_experiences: string[], 
+  traveling_with: string[]
+): Promise<string> => {
+  //clean the local storage
+  localStorage.removeItem("recommendations");
+  
   const query = `
     query {
-      getRecommendations
+      getRecommendations(
+        type_of_traveler: ${JSON.stringify(type_of_traveler)}, 
+        type_of_wanted_trip: ${JSON.stringify(type_of_wanted_trip)}, 
+        wanted_activities: ${JSON.stringify(wanted_activities)}, 
+        matched_experiences: ${JSON.stringify(matched_experiences)}, 
+        traveling_with: ${JSON.stringify(traveling_with)}
+      )
     }
   `;
 
-  const recommendations = await graphqlRequest<Recommendation[]>(query);
-  console.log("Recommendations:", recommendations); // Log the outcome
+  const recommendations = await graphqlRequest<any>(query);
+  console.log("Recommendations:", JSON.parse(recommendations.getRecommendations)); // Log the outcome
+
+  //store the recommendations in local storage
+  localStorage.setItem("recommendations", recommendations.getRecommendations);
   return recommendations;
 };
 
