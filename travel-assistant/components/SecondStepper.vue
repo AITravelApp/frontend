@@ -11,7 +11,6 @@ interface Form {
 }
 
 const step = ref(1);
-const store = useStepperStore();
 const router = useRouter();
 const counter = computed(() => step.value + 5);
 const textareaValue = ref("");

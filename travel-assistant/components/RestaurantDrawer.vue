@@ -1,11 +1,21 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
-defineProps({
+const props = defineProps({
   restaurant: {
     type: Object,
     required: true,
   },
+});
+
+const modifiedThumbnail = computed(() => {
+  if (!props.restaurant || !props.restaurant.thumbnail) return "";
+
+  // Assuming props.restaurant.thumbnail contains the URL
+  // Extract the base URL and append new dimensions
+  const baseUrl = props.restaurant.thumbnail.split("=")[0];
+  const newDimensions = "w1000-h1000-k-no"; // Change dimensions as needed
+  return `${baseUrl}=${newDimensions}`;
 });
 
 const maximizedToggle = ref(true);
@@ -15,9 +25,9 @@ const drawer = ref(false);
 <template>
   <button
     @click="drawer = !drawer"
-    class="text-black p-3 bg-secondary w-32  text-[15px] rounded-lg whitespace-nowrap"
+    class="text-black p-3 bg-secondary w-32 text-[15px] rounded-lg whitespace-nowrap"
   >
-     More details 
+    More details
   </button>
   <q-dialog
     v-model="drawer"
@@ -36,13 +46,15 @@ const drawer = ref(false);
 
       <q-card-section class="q-pt-none text-black mb-5">
         <section class="flex justify-center items-center flex-col mt-5">
-          <q-img
-            :src="restaurant.thumbnail"
+          <q-img 
+            :src="modifiedThumbnail" @error="restaurant.thumbnail"
             style="width: 900px; height: 500px"
             class="rounded-md shadow-xl"
           />
           <article class="flex justify-between items-center w-[900px] mt-5">
-            <h1 class="text-3xl text-black font-semibold">{{ restaurant.title }}</h1>
+            <h1 class="text-3xl text-black font-semibold">
+              {{ restaurant.title }}
+            </h1>
             <div class="flex gap-3 items-center">
               <q-rating
                 v-model="restaurant.rating"
@@ -55,9 +67,7 @@ const drawer = ref(false);
                 icon-half="star_half"
                 no-dimming
               />
-              <p class="text-[17px] font-semibold">
-                {{ restaurant.reviews }}+
-              </p>
+              <p class="text-[17px] font-semibold">{{ restaurant.reviews }}+</p>
             </div>
           </article>
           <article class="flex justify-between items-center w-[900px] mt-4">
@@ -84,7 +94,10 @@ const drawer = ref(false);
               </a>
             </div>
           </article>
-          <Map :lat="restaurant.gps_coordinates.latitude" :lng="restaurant.gps_coordinates.longitude" />
+          <Map
+            :lat="restaurant.gps_coordinates.latitude"
+            :lng="restaurant.gps_coordinates.longitude"
+          />
         </section>
       </q-card-section>
     </q-card>

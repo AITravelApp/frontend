@@ -33,5 +33,6 @@ export default defineNuxtConfig({
         warning: "#F2C037",
       },
     },
+    plugins: ['Notify']
   },
 });

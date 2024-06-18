@@ -30,7 +30,7 @@ for (let i = 0; i < restaurants.length; i += chunkSize) {
       control-color="black"
       padding
       arrows
-      height="450px"
+      height="900px"
       class="flex justify-center items-center"
     >
       <q-carousel-slide

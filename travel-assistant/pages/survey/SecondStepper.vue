@@ -3,6 +3,6 @@
 
 <template>
   <section>
-    <Stepper />
+    <SecondStepper />
   </section>
 </template>

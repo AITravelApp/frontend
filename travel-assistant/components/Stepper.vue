@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { getRecommendations } from "~/server/graphqlService";
+import { useQuasar } from "quasar";
 
 type FormType = {
   type_of_traveler: string[];
@@ -11,15 +12,16 @@ type FormType = {
 };
 
 const step = ref(1);
-const store = useStepperStore();
+const router = useRouter();
+const $q = useQuasar();
 
 const questions = [
   "",
-  "What type of traveler are you?",
-  "Which type of trip would you like?",
-  "What are some activities you would enjoy on your vacation?",
-  "Which of these experiences match your previous decisions?",
-  "With whom are you traveling?",
+  "What type of traveler are you?✈️",
+  "Which type of trip would you like?🌍", 
+  "What are some activities you would enjoy on your vacation?💡",
+  "Which of these experiences match your previous decisions?🤔",
+  "With whom are you traveling?✈️",
 ];
 
 const form: Ref<FormType> = ref({
@@ -30,6 +32,44 @@ const form: Ref<FormType> = ref({
   traveling_with: [],
 });
 
+const validateStep = (step: number): boolean => {
+  switch (step) {
+    case 1:
+      return form.value.type_of_traveler.length > 0;
+    case 2:
+      return form.value.type_of_wanted_trip.length > 0;
+    case 3:
+      return form.value.wanted_activities.length > 0;
+    case 4:
+      return form.value.matched_experiences.length > 0;
+    case 5:
+      return form.value.traveling_with.length > 0;
+    default:
+      return false;
+  }
+};
+
+const handleNext = async () => {
+  if (!validateStep(step.value)) {
+    $q.notify({
+      message: "Please fill in atleast one checkbox",
+      position: "bottom-right",
+      color: "accent",
+    });
+    return;
+  }
+
+  if (step.value === 5) {
+    try {
+      handleFormSubmission();
+      router.push({ path: "/survey/break" });
+    } catch (error) {
+      console.error("Failed to get recommendations:", error);
+    }
+  } else {
+    step.value++;
+  }
+};
 
 const handleFormSubmission = async () => {
   try {
@@ -38,9 +78,9 @@ const handleFormSubmission = async () => {
       type_of_wanted_trip: [...form.value.type_of_wanted_trip],
       wanted_activities: [...form.value.wanted_activities],
       matched_experiences: [...form.value.matched_experiences],
-      traveling_with: [...form.value.traveling_with]
+      traveling_with: [...form.value.traveling_with],
     };
-    
+
     const recommendations = await getRecommendations(
       formData.type_of_traveler,
       formData.type_of_wanted_trip,
@@ -48,12 +88,10 @@ const handleFormSubmission = async () => {
       formData.matched_experiences,
       formData.traveling_with
     );
-
   } catch (error) {
     console.error("Error fetching recommendations:", error);
   }
 };
-
 </script>
 
 <template>
@@ -159,7 +197,7 @@ const handleFormSubmission = async () => {
               val="shopping_activities"
               label="Shopping activities(malls, botiques)"
             />
-            
+
             <q-checkbox
               v-model="form.wanted_activities"
               val="relaxation"
@@ -261,7 +299,7 @@ const handleFormSubmission = async () => {
               <Icon name="mingcute:arrow-left-line" size="30px" color="black" />
             </q-btn>
             <q-btn
-                @click="() => step === 5 ? ( store.increment(), handleFormSubmission() ) : ($refs.stepper as any).next()"
+              @click="handleNext"
               color="secondary"
               class="text-black p-1 w-28"
               :label="step === 5 ? 'Finish' : ''"

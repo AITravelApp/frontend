@@ -10,7 +10,7 @@
       class="relative flex flex-col h-full justify-center pl-[10%] gap-10 -mt-10"
     >
       <h1 class="text-6xl text-black font-bold tracking-normal">
-       Personalize your dream <br> vacation
+       Personalize your dream <br> vacation in just a few steps
       </h1>
       <p class="max-w-md text-lg">
         Let us organize your dream vacation. Tell us everything you would like
@@ -22,7 +22,7 @@
         no-caps
         class="self-start rounded-full text-[17px] p-3 w-[10rem] h-[3rem] text-black"
       >
-        <NuxtLink to="/survey"> Start Survey </NuxtLink>
+        <NuxtLink to="/survey"> Start Exploring </NuxtLink>
       </q-btn>
     </article>
   </section>

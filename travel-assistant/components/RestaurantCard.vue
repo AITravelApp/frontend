@@ -1,18 +1,26 @@
 <script setup lang="ts">
 
 
-defineProps({
+const props = defineProps({
   restaurant: {
     type: Object,
     required: true,
   },
 });
+
+const modifiedThumbnail = computed(() => {
+  if (!props.restaurant || !props.restaurant.thumbnail) return "";
+
+  const baseUrl = props.restaurant.thumbnail.split('=')[0];
+  const newDimensions = "w500-h500-k-no";
+  return `${baseUrl}=${newDimensions}`;
+});
 </script>
 
 <template>
-  <q-card class="my-card w-[350px] flex flex-col justify-between shadow-2xl rounded-lg overflow-hidden">
+  <q-card class="my-card w-[350px] h-[500px] flex flex-col justify-between shadow-2xl rounded-lg overflow-hidden">
     <div>
-      <q-img class="w-[350px] h-[200px] object-cover" :src="restaurant.thumbnail" />
+      <q-img class="w-[350px] h-[200px] object-cover" :src="modifiedThumbnail" @error="restaurant.thumbnail" />
       <q-card-section class="flex flex-col gap-2 p-4">
         <div class="flex justify-between items-center">
           <h2 class="text-xl max-w-56 truncate font-semibold">{{ restaurant.title }}</h2>
@@ -32,7 +40,6 @@ defineProps({
             icon-half="star_half"
             :no-dimming="true"
           />
-            
           <p class="font-bold">{{ restaurant.reviews }} reviews</p>
         </div>
         <div class="mt-2 text-sm text-gray-500">

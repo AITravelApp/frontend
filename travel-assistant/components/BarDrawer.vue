@@ -1,11 +1,18 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-defineProps({
+const props = defineProps({
   bar: {
     type: Object,
     required: true,
   },
+});
+
+const modifiedThumbnail = computed(() => {
+  if (!props.bar || !props.bar.thumbnail) return "";
+  const baseUrl = props.bar.thumbnail.split("=")[0];
+  const newDimensions = "w1000-h1000-k-no";
+  return `${baseUrl}=${newDimensions}`;
 });
 
 const maximizedToggle = ref(true);
@@ -15,9 +22,9 @@ const drawer = ref(false);
 <template>
   <button
     @click="drawer = !drawer"
-    class="text-black p-3 bg-secondary w-32  text-[15px] rounded-lg whitespace-nowrap"
+    class="text-black p-3 bg-secondary w-32 text-[15px] rounded-lg whitespace-nowrap"
   >
-     More details 
+    More details
   </button>
   <q-dialog
     v-model="drawer"
@@ -37,7 +44,7 @@ const drawer = ref(false);
       <q-card-section class="q-pt-none text-black mb-5">
         <section class="flex justify-center items-center flex-col mt-5">
           <q-img
-            :src="bar.thumbnail"
+            :src="modifiedThumbnail" @error="bar.thumbnail"
             style="width: 900px; height: 500px"
             class="rounded-md shadow-xl"
           />
@@ -55,9 +62,7 @@ const drawer = ref(false);
                 icon-half="star_half"
                 no-dimming
               />
-              <p class="text-[17px] font-semibold">
-                {{ bar.reviews }}+
-              </p>
+              <p class="text-[17px] font-semibold">{{ bar.reviews }}+</p>
             </div>
           </article>
           <article class="flex justify-between items-center w-[900px] mt-4">
@@ -84,7 +89,10 @@ const drawer = ref(false);
               </a>
             </div>
           </article>
-          <Map :lat="bar.gps_coordinates.latitude" :lng="bar.gps_coordinates.longitude" />
+          <Map
+            :lat="bar.gps_coordinates.latitude"
+            :lng="bar.gps_coordinates.longitude"
+          />
         </section>
       </q-card-section>
     </q-card>

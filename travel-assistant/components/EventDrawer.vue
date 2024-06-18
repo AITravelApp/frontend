@@ -15,9 +15,9 @@ const drawer = ref(false);
 <template>
   <button
     @click="drawer = !drawer"
-    class="text-black p-3 bg-secondary w-32  text-[15px] rounded-lg whitespace-nowrap"
+    class="text-black p-3 bg-secondary w-32 text-[15px] rounded-lg whitespace-nowrap"
   >
-     More details 
+    More details
   </button>
   <q-dialog
     v-model="drawer"
@@ -65,22 +65,33 @@ const drawer = ref(false);
           <article class="flex justify-between items-center w-[900px] mt-4">
             <div class="flex gap-3 items-center">
               <Icon name="fluent:location-28-filled" color="red" size="30px" />
-              <h2 class="text-xl">{{ event.address.join(', ') }}</h2>
+              <h2 class="text-xl">{{ event.address.join(", ") }}</h2>
             </div>
             <!-- Price or ticket info can be added if available -->
             <!-- <p class="text-[20px] font-bold">{{ event.price }}</p> -->
           </article>
           <div class="w-[900px] h-[1px] bg-grey mt-10 opacity-45"></div>
           <article class="flex items-center gap-5 mt-10">
-            <!-- Tags can be added if available -->
-            <!-- <div class="flex gap-2 items-center">
+            <div class="flex gap-2 items-center">
               <Icon name="mingcute:tag-2-fill" size="30px" color="black" />
-              <p class="text-[18px]">{{ event.tags }}</p>
-            </div> -->
-            <!-- Additional event information can be added here -->
+              <p class="text-[18px]">{{ event.type }}</p>
+            </div>
+            <div v-if="event.phone" class="flex gap-2 items-center">
+              <Icon name="fa:phone" size="20px" color="black" />
+              <p class="text-[18px]">{{ event.phone }}</p>
+            </div>
+            <div v-if="event.website" class="flex gap-2 items-center">
+              <Icon name="fa6-solid:globe" size="22px" color="black" />
+              <a target="_blank" :href="event.website">
+                <p class="text-[18px] underline">{{ event.title }}</p>
+              </a>
+            </div>
           </article>
           <!-- Additional event-specific content can be added here -->
-          <Map :lat="event.gps_coordinates.latitude" :lng="event.gps_coordinates.longitude" />
+          <Map
+            :lat="event.gps_coordinates.latitude"
+            :lng="event.gps_coordinates.longitude"
+          />
         </section>
       </q-card-section>
     </q-card>
