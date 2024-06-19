@@ -14,13 +14,14 @@ type FormType = {
 const step = ref(1);
 const router = useRouter();
 const $q = useQuasar();
+const showWarning = ref(false);
 
 const questions = [
   "",
   "What type of traveler are you?✈️",
-  "Which type of trip would you like?🌍", 
+  "What type of landscapes do you enjoy the most on a vacation?🌍",
   "What are some activities you would enjoy on your vacation?💡",
-  "Which of these experiences match your previous decisions?🤔",
+  "What is your budget range for this vacation?💰",
   "With whom are you traveling?✈️",
 ];
 
@@ -35,15 +36,15 @@ const form: Ref<FormType> = ref({
 const validateStep = (step: number): boolean => {
   switch (step) {
     case 1:
-      return form.value.type_of_traveler.length > 0;
+      return form.value.type_of_traveler.length === 1;
     case 2:
       return form.value.type_of_wanted_trip.length > 0;
     case 3:
       return form.value.wanted_activities.length > 0;
     case 4:
-      return form.value.matched_experiences.length > 0;
+      return form.value.matched_experiences.length === 1;
     case 5:
-      return form.value.traveling_with.length > 0;
+      return form.value.traveling_with.length === 1;
     default:
       return false;
   }
@@ -51,14 +52,19 @@ const validateStep = (step: number): boolean => {
 
 const handleNext = async () => {
   if (!validateStep(step.value)) {
-    $q.notify({
-      message: "Please fill in atleast one checkbox",
-      position: "bottom-right",
-      color: "accent",
-    });
+    showWarning.value = true;
     return;
   }
-
+  showWarning.value = false;
+  const stepsLeft = 5 - step.value;
+  $q.notify({
+    message: `Question ${step.value} completed. Only ${stepsLeft} question${
+      stepsLeft !== 1 ? "s" : ""
+    } left.`,
+    position: "bottom-right",
+    color: "accent",
+    textColor: "white"
+  });
   if (step.value === 5) {
     try {
       handleFormSubmission();
@@ -96,9 +102,8 @@ const handleFormSubmission = async () => {
 
 <template>
   <section
-    class="flex flex-col justify-center items-center h-screen gap-5 -mt-16"
+    class="flex flex-col justify-center items-center h-screen gap-5 -mt-12"
   >
-    <h1 class="font-medium text-2xl">Question {{ step }} / 5</h1>
     <h2 class="font-semibold text-3xl max-w-xl text-center">
       {{ questions[step] }}
     </h2>
@@ -106,7 +111,6 @@ const handleFormSubmission = async () => {
       v-model="step"
       ref="stepper"
       contracted
-      header-nav
       flat
       animated
       class="w-6/12"
@@ -114,7 +118,9 @@ const handleFormSubmission = async () => {
       done-color="primary"
     >
       <q-step title="question 1" :name="1" :done="step > 1">
-        <article class="flex flex-col ml-10">
+        <q-separator class="-mt-2 mb-5" />
+
+        <article class="flex flex-col ml-10 mt-5">
           <q-checkbox
             v-model="form.type_of_traveler"
             val="discovering_everyday"
@@ -131,137 +137,143 @@ const handleFormSubmission = async () => {
             label="Wants a combination of discovering new places and relaxation"
           />
         </article>
+        <q-separator class="mt-5" />
+        <p
+          v-if="showWarning"
+          class="flex justify-center align-center text-negative mt-7 text-[16px]"
+        >
+          *Please fill in one checkbox to help us create the best possible
+          itinerary*
+        </p>
       </q-step>
       <q-step title="question 2" :name="2" :done="step > 2">
+        <q-separator class="-mt-2 mb-5" />
         <article class="grid grid-cols-2 place-items-center">
           <div class="flex flex-col">
             <q-checkbox
               v-model="form.type_of_wanted_trip"
-              val="outdoor_trip"
-              label="Outdoor trip(hiking, biking)"
+              val="coastal_and_beach"
+              label="Coastal and beach views"
             />
             <q-checkbox
               v-model="form.type_of_wanted_trip"
-              val="festivals_and_clubs"
-              label="Festive trip (festivals, clubs)"
+              val="countryside"
+              label="Rolling hills and countryside"
             />
             <q-checkbox
               v-model="form.type_of_wanted_trip"
-              val="cultural_trip"
-              label="Cultural trip (historical, cultural experiences)"
+              val="mountains_and_lakes"
+              label="Mountainous terrain and lakes"
             />
           </div>
           <div class="flex flex-col">
             <q-checkbox
               v-model="form.type_of_wanted_trip"
-              val="beach_trip"
-              label="Beach trip (coastal areas, swimming)"
-            />
-            <q-checkbox
-              v-model="form.type_of_wanted_trip"
-              val="urban_trip_cities"
-              label="Urban trip (cities, metropolitan areas)"
+              val="historic_cityscapes_and_architecture"
+              label="Historic cityscapes and architecture"
             />
           </div>
         </article>
+        <q-separator class="mt-5" />
+        <p
+          v-if="showWarning"
+          class="flex justify-center align-center text-negative mt-7 text-[16px]"
+        >
+          *Please fill in at least one box to help us create the best possible
+          itinerary*
+        </p>
       </q-step>
 
       <q-step title="question 3" :name="3" :done="step > 3">
+        <q-separator class="-mt-2 mb-5" />
         <article class="grid grid-cols-2 place-items-center">
           <div class="flex flex-col">
             <q-checkbox
               v-model="form.wanted_activities"
-              val="cultural_activities"
-              label="Cultural activities(museums, monuments)"
-            />
-            <q-checkbox
-              v-model="form.wanted_activities"
-              val="outdoor_activities"
-              label="Outdoor activities (hiking, biking)"
-            />
-            <q-checkbox
-              v-model="form.wanted_activities"
-              val="food_and_culinary_experiences"
-              label="Food and culinary experiences"
-            />
-
-            <q-checkbox
-              v-model="form.wanted_activities"
-              val="beach_activities"
-              label="Beach activities(sunbathing, swimming)"
-            />
-          </div>
-          <div class="flex flex-col">
-            <q-checkbox
-              v-model="form.wanted_activities"
-              val="shopping_activities"
-              label="Shopping activities(malls, botiques)"
-            />
-
-            <q-checkbox
-              v-model="form.wanted_activities"
-              val="relaxation"
-              label="Relaxation(wellness)"
-            />
-            <q-checkbox
-              v-model="form.wanted_activities"
-              val="concerts_and_festivals"
-              label="Concerts and festivals"
-            />
-          </div>
-        </article>
-      </q-step>
-
-      <q-step title="question 4" :name="4" :done="step > 4">
-        <article class="grid grid-cols-2 place-items-center">
-          <div class="flex flex-col">
-            <q-checkbox
-              v-model="form.matched_experiences"
               val="experiencing_italian_night_life"
               label="Experiencing Italian night life. "
             />
             <q-checkbox
-              v-model="form.matched_experiences"
+              v-model="form.wanted_activities"
               val="savoring_Italian_cuisine"
               label="Savoring Italian cuisine(pizza, gelato, etc...)"
             />
             <q-checkbox
-              v-model="form.matched_experiences"
-              val="visiting_different_museums"
-              label="Visiting different museums"
+              v-model="form.wanted_activities"
+              val="visiting_museums_and_art_galleries"
+              label="Visiting renowned museums and art galleries"
             />
 
             <q-checkbox
-              v-model="form.matched_experiences"
+              v-model="form.wanted_activities"
               val="sightseeing_historic_buildings_and_cities"
               label="Sightseeing historic buildings and cities"
             />
           </div>
           <div class="flex flex-col">
             <q-checkbox
-              v-model="form.matched_experiences"
+              v-model="form.wanted_activities"
               val="exploring_coastal_areas"
               label="Exploring coastal areas"
             />
             <q-checkbox
-              v-model="form.matched_experiences"
+              v-model="form.wanted_activities"
               val="exploring_the_nearby_nature"
-              label="Exploring the nearby nature"
+              label="Discovering the beauty of Italy&rsquo;s countryside"
             />
             <q-checkbox
-              v-model="form.matched_experiences"
+              v-model="form.wanted_activities"
               val="shopping_at_popular_destinations"
-              label="Shopping at popular destinations"
+              label="Shopping at famous Italian fashion destinations"
             />
             <q-checkbox
-              v-model="form.matched_experiences"
+              v-model="form.wanted_activities"
               val="experiencing_Italian_wines,_cocktails"
-              label="Experiencing Italian wines, cocktails, etc.. "
+              label="Tasting Italy&rsquo;s world-famous wines and cocktails"
             />
           </div>
         </article>
+        <q-separator class="mt-5" />
+        <p
+          v-if="showWarning"
+          class="flex justify-center align-center text-negative mt-7 text-[16px]"
+        >
+          *Please fill in at least one box to help us create the best possible
+          itinerary*
+        </p>
       </q-step>
+
+      <q-step title="question 4" :name="4" :done="step > 4">
+        <q-separator class="-mt-2 mb-5" />
+        <article class="flex flex-col ml-10">
+          <q-checkbox
+            v-model="form.matched_experiences"
+            val="budget_friendly"
+            label="Economy (budget-friendly options)"
+          />
+          <q-checkbox
+            v-model="form.matched_experiences"
+            val="mid_range_budget"
+            label="Mid-range (comfortable but not extravagant)"
+          />
+          <q-checkbox
+            v-model="form.matched_experiences"
+            val="high_range_budget"
+            label="Luxury (high-end experiences)"
+          />
+        </article>
+        <q-separator class="mt-5" />
+        <p
+          v-if="showWarning"
+          class="flex justify-center align-center text-negative mt-7 text-[16px]"
+        >
+          *Please fill in at least one box to help us create the best possible
+          itinerary*
+        </p>
+      </q-step>
+
       <q-step title="question 5" :name="5" :done="step > 5">
+        <q-separator class="-mt-2 mb-5" />
         <article class="grid grid-cols-2 place-items-center">
           <div class="flex flex-col">
             <q-checkbox v-model="form.traveling_with" val="solo" label="Solo" />
@@ -284,11 +296,19 @@ const handleFormSubmission = async () => {
             />
           </div>
         </article>
+        <q-separator class="mt-5" />
+        <p
+          v-if="showWarning"
+          class="flex justify-center align-center text-negative mt-7 text-[16px]"
+        >
+          *Please fill in at least one box to help us create the best possible
+          itinerary*
+        </p>
       </q-step>
 
       <template v-slot:navigation>
         <q-stepper-navigation>
-          <div class="flex justify-between mt-16">
+          <div class="flex justify-center items-center gap-10">
             <q-btn
               v-if="step > 1"
               color="secondary"

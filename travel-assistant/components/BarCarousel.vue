@@ -27,7 +27,7 @@ for (let i = 0; i < bars.length; i += chunkSize) {
       control-color="black"
       padding
       arrows
-      height="900px"
+      height="600px"
       class="flex justify-center items-center"
     >
       <q-carousel-slide

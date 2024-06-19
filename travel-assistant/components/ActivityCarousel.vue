@@ -24,10 +24,10 @@ for (let i = 0; i < events.length; i += chunkSize) {
       transition-next="slide-left"
       swipeable
       animated
-      control-color="black"
-      padding
       arrows
-      height="900px"
+      padding
+      height="650px"
+      control-color="black"
       class="flex justify-center items-center"
     >
       <q-carousel-slide

@@ -1,6 +1,6 @@
 <template>
   <q-card
-    class="my-card w-[350px] flex flex-col justify-between shadow-2xl rounded-lg overflow-hidden"
+    class="my-card w-[350px] h-[500px] flex flex-col justify-between shadow-2xl rounded-lg overflow-hidden"
   >
     <div>
       <q-img class="w-[350px] h-[200px] object-cover" :src="modifiedThumbnail" @error="bar.thumbnail" />

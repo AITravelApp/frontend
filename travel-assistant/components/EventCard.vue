@@ -1,4 +1,6 @@
 <script setup lang="ts">
+
+
 defineProps({
   event: {
     type: Object,
@@ -11,10 +13,13 @@ defineProps({
 
 <template>
   <q-card
-    class="my-card w-[350px] h-[500px] flex flex-col justify-between shadow-2xl rounded-lg overflow-hidden"
+    class="my-card w-[350px] h-[575px] flex flex-col justify-between shadow-2xl rounded-lg overflow-hidden"
   >
     <div>
-      <q-img class="w-[350px] h-[200px] object-cover" :src="event.thumbnail" />
+      <q-img
+        class="w-[350px] h-[200px] object-cover"
+        :src="event.thumbnail"
+      />
       <q-card-section class="flex flex-col gap-2 p-4">
         <div class="flex justify-between items-center">
           <h2 class="text-xl max-w-56 truncate font-semibold">

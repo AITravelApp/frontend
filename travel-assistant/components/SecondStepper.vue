@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { useQuasar } from "quasar";
 
 interface Form {
   question1: string[];
@@ -14,10 +15,12 @@ const step = ref(1);
 const router = useRouter();
 const counter = computed(() => step.value + 5);
 const textareaValue = ref("");
+const $q = useQuasar();
+const showWarning = ref();
 
 const questions = [
   "",
-  "Are there any specific hobbies and interests you’d like to explore during your trip?",
+  "Which aspect of Italian culture are you most excited to explore?",
   "Do you like exploring local villages / cities to enjoy the traditional architecure?",
   "Would you like recommendations for local restuarants, food markets, or wine tasting?",
   "Are you looking for cost-efficitive options when it comes to events and activities?",
@@ -32,20 +35,56 @@ const form = ref<Form>({
   question5: [],
 });
 
-function addAnswer() {
-  console.log(form.value.question1);
-  form.value.question1.push(textareaValue.value);
-  textareaValue.value = "";
-}
 
-console.log(form.value);
+
+const validateStep = (step: number): boolean => {
+  switch (step) {
+    case 1:
+      return form.value.question1.length === 1;
+    case 2:
+      return form.value.question2.length === 1;
+    case 3:
+      return form.value.question3.length === 1;
+    case 4:
+      return form.value.question4.length === 1;
+    case 5:
+      return form.value.question5.length === 1;
+    default:
+      return false;
+  }
+};
+
+const handleNext = async () => {
+  if (!validateStep(step.value)) {
+    showWarning.value = true;
+    return;
+  }
+  showWarning.value = false;
+  const stepsLeft = 5 - step.value;
+  $q.notify({
+    message: `Question ${step.value} completed. Only ${stepsLeft} question${
+      stepsLeft !== 1 ? "s" : ""
+    } left.`,
+    position: "bottom-right",
+    color: "accent",
+    textColor: "white",
+  });
+  if (step.value === 5) {
+    try {
+      router.push({ path: "/summary" });
+    } catch (error) {
+      console.error("Failed to get recommendations:", error);
+    }
+  } else {
+    step.value++;
+  }
+};
 </script>
 
 <template>
   <section
     class="flex flex-col justify-center items-center h-screen gap-5 -mt-16"
   >
-    <h1 class="font-medium text-2xl">Question {{ counter }} / 10</h1>
     <h2 class="font-semibold text-3xl max-w-xl text-center">
       {{ questions[step] }}
     </h2>
@@ -61,15 +100,35 @@ console.log(form.value);
       done-color="primary"
     >
       <q-step title="question 1" :name="1" :done="step > 1">
-        <article class="flex flex-col">
-          <textarea
-            class="focus:outline-none border p-3 border-grey h-28"
-            v-model="textareaValue"
-            placeholder="Fill it in here"
-          ></textarea>
+        <q-separator class="-mt-2 mb-5" />
+        <article class="flex flex-col ml-10">
+          <q-checkbox
+            v-model="form.question1"
+            val="history_and_art"
+            label="The rich history and art"
+          />
+          <q-checkbox
+            v-model="form.question1"
+            val="vibrant_music_and_entertainment"
+            label="The vibrant music and entertainment scene"
+          />
+          <q-checkbox
+            v-model="form.question1"
+            val="family_lifestyle_and_local_festivals"
+            label="The family-oriented lifestyle and local festivals"
+          />
         </article>
+        <q-separator class="mt-5" />
+        <p
+          v-if="showWarning"
+          class="flex justify-center align-center text-negative mt-7 text-[16px]"
+        >
+          *Please fill in one checkbox to help us create the best possible
+          itinerary*
+        </p>
       </q-step>
       <q-step title="question 2" :name="2" :done="step > 2">
+        <q-separator class="-mt-2 mb-5" />
         <article class="grid grid-cols-2 place-items-center">
           <q-checkbox
             v-model="form.question2"
@@ -82,9 +141,18 @@ console.log(form.value);
             label="No, I'd rather not"
           />
         </article>
+        <q-separator class="mt-5" />
+        <p
+          v-if="showWarning"
+          class="flex justify-center align-center text-negative mt-7 text-[16px]"
+        >
+          *Please fill in one checkbox to help us create the best possible
+          itinerary*
+        </p>
       </q-step>
 
       <q-step title="question 3" :name="3" :done="step > 3">
+        <q-separator class="-mt-2 mb-5" />
         <article class="grid grid-cols-2 place-items-center">
           <q-checkbox
             v-model="form.question3"
@@ -97,9 +165,18 @@ console.log(form.value);
             label="No, I'd rather not"
           />
         </article>
+        <q-separator class="mt-5" />
+        <p
+          v-if="showWarning"
+          class="flex justify-center align-center text-negative mt-7 text-[16px]"
+        >
+          *Please fill in one checkbox to help us create the best possible
+          itinerary*
+        </p>
       </q-step>
 
       <q-step title="question 4" :name="4" :done="step > 4">
+        <q-separator class="-mt-2 mb-5" />
         <article class="grid grid-cols-2 place-items-center">
           <q-checkbox
             v-model="form.question4"
@@ -112,8 +189,17 @@ console.log(form.value);
             label="No, not really"
           />
         </article>
+        <q-separator class="mt-5" />
+        <p
+          v-if="showWarning"
+          class="flex justify-center align-center text-negative mt-7 text-[16px]"
+        >
+          *Please fill in one checkbox to help us create the best possible
+          itinerary*
+        </p>
       </q-step>
       <q-step title="question 5" :name="5" :done="step > 5">
+        <q-separator class="-mt-2 mb-5" />
         <article class="grid grid-cols-2 place-items-center">
           <q-checkbox
             v-model="form.question5"
@@ -126,6 +212,14 @@ console.log(form.value);
             label="No, I'm not a fan of festivals"
           />
         </article>
+        <q-separator class="mt-5" />
+        <p
+          v-if="showWarning"
+          class="flex justify-center align-center text-negative mt-7 text-[16px]"
+        >
+          *Please fill in one checkbox to help us create the best possible
+          itinerary*
+        </p>
       </q-step>
 
       <template v-slot:navigation>
@@ -141,7 +235,7 @@ console.log(form.value);
               <Icon name="mingcute:arrow-left-line" size="30px" color="black" />
             </q-btn>
             <q-btn
-              @click="() => step === 5 ? ( addAnswer(), router.push('/summary')) : ($refs.stepper as any).next()"
+              @click="handleNext"
               color="secondary"
               class="text-black p-1 w-28"
               :label="step === 5 ? 'Finish' : ''"
