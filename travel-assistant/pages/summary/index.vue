@@ -29,7 +29,7 @@ onMounted(() => {
     <q-img src="/stepper.jpg" class="w-[50%]" draggable="false" />
     <h1 class="text-[40px] font-semibold">🎉 Congratulations!</h1>
     <p class="text-center text-[18px]">
-      You completed the survey and now it is time to see what comes next. <br />
+      We have gathered your preferences. Please continue to see the results.<br />
     </p>
     <article class="flex justify-center items-center gap-10 mt-5">
       <div class="flex flex-col items-center">
@@ -111,7 +111,7 @@ onMounted(() => {
           color="secondary"
           no-caps
           class="p-2 w-44 rounded-md text-black font-bold"
-          >Proceed</q-btn
+          >Continue</q-btn
         >
       </NuxtLink>
     </article>

@@ -27,7 +27,7 @@ const router = useRouter();
         no-caps
         @click="router.push('/survey/secondStepper')"
         class="p-2 w-44 rounded-md text-black"
-        >Proceed</q-btn
+        >Continue</q-btn
       >
     </article>
   </section>

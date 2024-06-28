@@ -35,8 +35,6 @@ const form = ref<Form>({
   question5: [],
 });
 
-
-
 const validateStep = (step: number): boolean => {
   switch (step) {
     case 1:
@@ -224,7 +222,7 @@ const handleNext = async () => {
 
       <template v-slot:navigation>
         <q-stepper-navigation>
-          <div class="flex justify-between mt-16">
+          <div class="flex justify-center items-center gap-10">
             <q-btn
               v-if="step > 1"
               color="secondary"
